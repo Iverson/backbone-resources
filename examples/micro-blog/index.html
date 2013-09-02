@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7,IE=edge" />
+	<title>Micro blog.</title>
+	<link rel="stylesheet" type="text/css" href="style.css"  />
+	<script type="text/javascript" src="../../vendor/jquery.min.js"></script>
+	<script type="text/javascript" src="../../vendor/underscore.js"></script>
+	<script type="text/javascript" src="../../vendor/backbone.js"></script>
+	<script type="text/javascript" src="../backbone.localStorage.js"></script>
+	<script type="text/javascript" src="../../vendor/backbone-validation.js"></script>
+	<script type="text/javascript" src="../../backbone-resources.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+</head>
+<body>
+	<div id="app">
+		Loading....
+	</div>
+	
+	<!-- Templates -->
+	
+	<script type="text/template" id="posts-item">
+		<p><a href="<%= post_path(id) %>"><b><%= title %></b></a> &nbsp;<i>(<a href="<%= edit_post_path(id) %>">edit</a>)</p>
+		<p><%= body %></p>
+		<a class="js-destroy" href="#">Удалить</a>
+	</script>
+	
+	<script type="text/template" id="posts-edit">
+		<h1>Edit post.</h1>
+		<p></p>
+
+		<div id="create-post">
+		    <div id="errors"></div>
+		    <p>
+		        <input name="title" type="text" value="<%= title %>" placeholder="title" />
+		    </p>
+		    <p>
+		        <textarea name="body" placeholder="body"><%= body %></textarea>
+		    </p>
+		    <p>
+		        <a class="js-editPost" href="#">Edit</a>
+		    </p>
+		    <a class="#" href="<%= posts_path() %>">Back to Post List</a>
+
+
+		</div>
+		<br /><br />
+	</script>
+	
+	<script type="text/template" id="posts-index">
+		<h1>Posts List.</h1>
+		<p></p>
+		<br />
+		<a href="<%= new_post_path()  %>" class="">Create new post</a>
+		<br /><br />
+
+		<div id="posts">
+		    Загрузка...
+		</div>
+	</script>
+	
+	<script type="text/template" id="posts-new">
+		<h1>New post.</h1>
+		<p></p>
+
+		<div id="create-post">
+		    <div id="errors"></div>
+		    <p>
+		        <input name="title" type="text" value="" placeholder="title" />
+		    </p>
+		    <p>
+		        <textarea name="body" placeholder="body"></textarea>
+		    </p>
+		    <p>
+		        <a class="js-createPost" href="#">Добавить</a>
+		    </p>
+		    <a class="#" href="<%= posts_path() %>">Back to Post List</a>
+
+
+		</div>
+		<br /><br />
+	</script>
+	
+	<script type="text/template" id="posts-show">
+		<h1><%= title %></h1>
+		<p></p>
+		<br />
+		<p><%= body %></p>
+		<br />
+
+		<a class="#" href="<%= posts_path() %>">Back to Post List</a>
+	</script>
+</body>
+</html>
