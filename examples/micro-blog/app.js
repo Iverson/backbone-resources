@@ -1,3 +1,6 @@
+
+
+
 _.extend(Backbone.Model.prototype, Backbone.Validation.mixin);
 
 window.App = new (Backbone.View.extend({
@@ -113,10 +116,13 @@ App.Views.PostNewForm = Backbone.View.extend({
   },
 
   createPost: function() {
+    var that = this;
+    var id = incID(this.collection);
+    
     this.inputTitle = this.$('[name="title"]')
     this.inputBody = this.$('[name="body"]')
     
-    this.model = this.collection.create({title: this.inputTitle.val(), body: this.inputBody.val()}, {wait: true})
+    this.model = this.collection.create({id: id, title: this.inputTitle.val(), body: this.inputBody.val()}, {wait: true});
     
     if (this.model.isValid())
     {
@@ -162,107 +168,24 @@ App.Views.PostsList = Backbone.View.extend({
 	},
 
 	addAll: function() {
-		this.$el.empty();
+		$('#posts').empty();
 		this.collection.forEach(this.addOne);
 	},
 
 	addOne: function(model) {
 		item = new App.Views.PostItem({model: model});
-		this.$el.append(item.render().el);
+		$('#posts').append(item.render().el);
 	}
 });
 
-// ####################
-// Resources classes
-// ####################
+var incID = function(collection) {
+  var length = collection.length;
+  
+  return (length == 0) ? '1' : ((collection.models[length-1].get('id')*1 + 1) + '');
+}
 
-App.Views.Posts = Resources.View.extend({
-  el: "#app",
-  
-  // Auto-define this.template = JST["backbone/templates/posts/:action"] in each action and use it in render.
-  //templatesPath: "backbone/templates/posts",
-
-  initialize: function() {
-    _.bindAll(this);
-    this.Posts = new App.Collections.Posts;
-  },
-  
-  // Actions methods
-  // ------------------------
-  //
-  // Automaticly call by Resource.Router when standart route fire.
-  // After each action by convention fires render() method with params from router (:id) and with template from JST["backbone/templates/posts/:action"]
-  // to disable this callback you should call skipRender() in body your action and if you want call render() by yourself, template would by also send automaticly.
-  
-  index: function() {
-    this.template = _.template($('#posts-index').text());
-    this.render();
-    
-    this.PostsListView = new App.Views.PostsList({collection: this.Posts});
-    this.Posts.fetch({reset: true, error: App.ajaxError});  
-  },
-  
-  new: function() {
-    this.template = _.template($('#posts-new').text());
-    
-    this.PostNewFormView = new App.Views.PostNewForm({collection: this.Posts})
-  },
-  
-  // Auto-define this.params with :id from router
-  show: function() {
-    this.template = _.template($('#posts-show').text());
-      
-    this.Posts.fetch();
-    this.post = this.Posts.findWhere({id: this.params.id});
-    
-    this.skipRender();
-    
-    if (this.post) {
-        this.render(this.post.attributes);
-    } else {
-        App.router.navigate(posts_path(), {trigger: true});
-    }
-  },
-  
-  // Auto-define this.params with :id from router
-  edit: function() {
-    this.template = _.template($('#posts-edit').text());
-    this.Posts.fetch();
-    this.post = this.Posts.findWhere({id: this.params.id});
-    
-    this.skipRender();
-    
-    if (this.post) {
-        this.render(this.post.attributes);
-        this.PostEditFormView = new App.Views.PostEditForm({model: this.post});
-    } else {
-        App.router.navigate(posts_path(), {trigger: true});
-    }
-  }
-    
-});
-
-App.Router = Resources.Router.extend({
-  
-  // Just define Resource.View which would be handle all standart actions by resource. (index, new, show, edit)
-  //
-  // For each resources will be created 4 helpers methods for simple generate urls for links.
-  //
-  // Example:
-  //     posts_path() => '#posts'
-  //     new_post_path() => '#posts/new'
-  //     post_path(12) => '#posts/12'
-  //     edit_post_path(12) => '#posts/12/edit'
-  //     special_posts_path() => '#posts/special'
-  //     details_post_path(12) => '#posts/12/details'
-  
-  resources: {
-    posts : {view: App.Views.Posts, actions: ['index', 'new'], item_actions: ['show', 'edit']}
-  },
-  
-  redirects: {
-    ".*"    : "posts",
-    "e/:id" : "posts/:id/edit"
-  }
-    
-});
+var postBootstrap = [
+  {id: '1', title: "Welcome to my blog!", body: "Natalie Cole, a young writer, is late to board the ship that was to take her home to America. Already depressed by a chain of misfortunes, Natalie becomes absolutely despondent. Just when she is about to give up hope of getting home, she meets a captain at the port who is sailing a cargo ship to her very same destination, and he invites her to sail along with him and his crew. Natalie, relieved at her good fortune, agrees. Little does she know, this random stroke of good luck hasn't come without a price. Natalie has unwittingly embarked on a dangerous and exciting journey where she must prevent ancient evil from awakening inside a mysterious antique collection on board the cargo ship! Can Natalie save the crew and its captain from evil spirits and still return home? "},
+  {id: '2', title: "Sunny gone, sadly...", body: "Everybody do what you're doing \nSmile will bring a sunshine day \nEverybody do what you're doing \nSmile will bring a sunshine day."},
+  {id: '3', title: "Use my new plugin Backbone.Resources.", body: "Add some magic to your router."}
+];

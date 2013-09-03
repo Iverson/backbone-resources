@@ -3,90 +3,116 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7,IE=edge" />
-	<title>Micro blog.</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Micro blog with Backbone.Resources</title>
+	<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+	<link href="../bootstrap/css/sticky-footer.css" rel="stylesheet" media="screen" />
 	<link rel="stylesheet" type="text/css" href="style.css"  />
 	<script type="text/javascript" src="../../vendor/jquery.min.js"></script>
+	<script src="../bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../../vendor/underscore.js"></script>
 	<script type="text/javascript" src="../../vendor/backbone.js"></script>
 	<script type="text/javascript" src="../backbone.localStorage.js"></script>
 	<script type="text/javascript" src="../../vendor/backbone-validation.js"></script>
 	<script type="text/javascript" src="../../backbone-resources.js"></script>
 	<script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript" src="resources.js"></script>
 </head>
 <body>
-	<div id="app">
-		Loading....
-	</div>
+    <!-- Wrap all page content here -->
+    <div id="wrap">
+
+        <!-- Begin page content -->
+        <div class="container">
+            <div class="page-header">
+                <h1>Micro-blog</h1>
+            </div>
+            <p class="lead">Example of application with&nbsp;<a href="https://github.com/Iverson/backbone-resources">Backbone.Resources</a></p>
+            
+            <div id="app">
+        		Loading....
+        	</div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div class="container">
+            <p class="text-muted credit">
+                <a href="https://github.com/Iverson/backbone-resources">Backbone.Resources</a> by
+                Alexey Krasman <a href="mailto:akrasman@gmail.com">akrasman@gmail.com</a>
+            </p>
+        </div>
+    </div>
 	
 	<!-- Templates -->
 	
 	<script type="text/template" id="posts-item">
-		<p><a href="<%= post_path(id) %>"><b><%= title %></b></a> &nbsp;<i>(<a href="<%= edit_post_path(id) %>">edit</a>)</p>
+		<p>
+            <h3><a href="<%= post_path(id) %>"><b><%= title %></b></a>&nbsp;<small>(<a href="<%= edit_post_path(id) %>">edit</a>) (<a href="#e/<%= id %>">redirect by short url</a>)</small></h3>
+		    <i></i>
+		</p>
 		<p><%= body %></p>
-		<a class="js-destroy" href="#">Удалить</a>
+		<a class="js-destroy" href="#">Remove post</a>
 	</script>
 	
 	<script type="text/template" id="posts-edit">
-		<h1>Edit post.</h1>
+		<h2>Edit post</h2>
 		<p></p>
 
 		<div id="create-post">
-		    <div id="errors"></div>
-		    <p>
-		        <input name="title" type="text" value="<%= title %>" placeholder="title" />
-		    </p>
-		    <p>
-		        <textarea name="body" placeholder="body"><%= body %></textarea>
-		    </p>
-		    <p>
-		        <a class="js-editPost" href="#">Edit</a>
-		    </p>
-		    <a class="#" href="<%= posts_path() %>">Back to Post List</a>
-
-
+            <form role="form">
+		        <div id="errors" class="text-danger"></div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Title</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="title" placeholder="Enter title" value="<%= title %>" />
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Body</label>
+                <textarea class="form-control" rows="4" id="exampleInputPassword1" name="body" placeholder="Write post text here..."><%= body %></textarea>
+              </div>
+              
+              <button type="submit" class="btn btn-primary js-editPost">Edit post</button>
+              
+              <a class="btn btn-default" href="<%= posts_path() %>">Back to Post List</a>
+            </form>
 		</div>
 		<br /><br />
 	</script>
 	
 	<script type="text/template" id="posts-index">
-		<h1>Posts List.</h1>
-		<p></p>
-		<br />
-		<a href="<%= new_post_path()  %>" class="">Create new post</a>
-		<br /><br />
+        <h2>Posts List <small>(<a href="<%= new_post_path()  %>" class="">Create new post</a>)</small></h2>
 
 		<div id="posts">
-		    Загрузка...
+		    Постов нет.
 		</div>
 	</script>
 	
 	<script type="text/template" id="posts-new">
-		<h1>New post.</h1>
+		<h2>New post</h2>
 		<p></p>
 
 		<div id="create-post">
-		    <div id="errors"></div>
-		    <p>
-		        <input name="title" type="text" value="" placeholder="title" />
-		    </p>
-		    <p>
-		        <textarea name="body" placeholder="body"></textarea>
-		    </p>
-		    <p>
-		        <a class="js-createPost" href="#">Добавить</a>
-		    </p>
-		    <a class="#" href="<%= posts_path() %>">Back to Post List</a>
-
-
+		    <form role="form">
+		        <div id="errors" class="text-danger"></div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Title</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="title" placeholder="Enter title">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Body</label>
+                <textarea class="form-control" rows="4" id="exampleInputPassword1" name="body" placeholder="Write post text here..."></textarea>
+              </div>
+              
+              <button type="submit" class="btn btn-primary js-createPost">Add post</button>
+              
+              <a class="btn btn-default" href="<%= posts_path() %>">Back to Post List</a>
+            </form>
 		</div>
-		<br /><br />
 	</script>
 	
 	<script type="text/template" id="posts-show">
-		<h1><%= title %></h1>
-		<p></p>
-		<br />
-		<p><%= body %></p>
+		<h2><%= title %>&nbsp;<small>(<a href="<%= edit_post_path(id) %>">edit</a>)</small></h2>
+		<pre><%= body %></pre>
 		<br />
 
 		<a class="#" href="<%= posts_path() %>">Back to Post List</a>

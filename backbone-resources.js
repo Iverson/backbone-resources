@@ -1,6 +1,13 @@
+// Backbone.Resources v0.0.1
+//
+// Copyright (c) 2013 Alexey Krasman
+// Distributed under MIT License
+//
+// Documentation available at: https://github.com/Iverson/backbone-resources
 var Resources = (function(Backbone, _) {
   
-  // Local private variables
+  /// Default options
+  // ---------------
   var Resources     = {},
       resources     = {},
       views         = {},
@@ -28,7 +35,7 @@ var Resources = (function(Backbone, _) {
   // Resource.Router
   // ------------------------
   //
-  // Support declarated resource GET-method routes (index, show, new, edit) and bind it for special Resource.View.
+  // Allows declaratively define resources width actions (index, show, new, edit, etc..) and auto-bind it with the same name methods in special Resources.View.
   
   Resources.Router = Backbone.Router.extend({
     
@@ -181,7 +188,7 @@ var Resources = (function(Backbone, _) {
         for (var i=0; i < arguments.length; i++) {
           route2 = route2.replace(re, arguments[i]);
         }
-        this.navigate(route2, {trigger: true});
+        this.navigate(route2, {trigger: true, replace: true});
       }
       
       this.route(route1, redirectActionName);
@@ -197,8 +204,10 @@ var Resources = (function(Backbone, _) {
   Resources.View = Backbone.View.extend({
     
     action: function(action, params) {
+      this._runningAction = action;
+      
       this.template = null;
-      this._actionTemplatePath = (this.templatesPath) ? this.templatesPath + "/" + action : null;
+      this._actionTemplatePath = (this.JSTpath) ? this.JSTpath + "/" + action : null;
       
       if (typeof JST != 'undefined') {
         this.template = JST[this._actionTemplatePath];
@@ -212,14 +221,19 @@ var Resources = (function(Backbone, _) {
         this.render();
       }
       this.rendered = false;
+      this._runningAction = null;
     },
     
     render: function(params) {
+      var that = this;
       params = params || this.params;
       
-      if (typeof this.template == 'function')
+      if ((typeof this.template == 'function') && this._runningAction)
       {
-        this.$el.empty().append(this.template(params));
+        this.$el.empty().append(this.template(params)).ready(function()
+        {
+          that.rendered = false;
+        });
       }
       this.rendered = true;
       return this;
