@@ -37,6 +37,7 @@ module.exports = function(grunt) {
     },
     push: {
       options: {
+        bumpVersion: false,
         files: ['package.json'],
         updateConfigs: [],
         add: true,
@@ -60,6 +61,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-push-release');
 
   grunt.registerTask('build', ['uglify', 'rig']);
-  grunt.registerTask('publish', ['build', 'bump']);
+  grunt.registerTask('publish', ['build', 'push']);
 
 };
