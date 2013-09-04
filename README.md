@@ -1,4 +1,4 @@
-# Backbone.Resources v0.0.2
+# Backbone.Resources v0.0.9
 
 No need more define route actions inside [Backbone](http://documentcloud.github.com/backbone) Router.
 

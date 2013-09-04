@@ -1,4 +1,4 @@
-/* Backbone.Resources v0.0.2
+/* Backbone.Resources v0.0.9
  * https://github.com/Iverson/backbone-resources
  *
  * Copyright (c) 2013 Alexey Krasman
