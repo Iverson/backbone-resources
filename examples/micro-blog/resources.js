@@ -48,13 +48,13 @@ App.Views.Posts = Resources.View.extend({
   show: function() {
     this.template = _.template($('#posts-show').text());
       
-    this.Posts.fetch();
-    this.post = this.Posts.findWhere({id: this.params.id});
+    //this.Posts.fetch({reset: true, error: App.ajaxError});
+    var post = this.Posts.findWhere({id: this.params.id});
     
     this.skipRender();
     
-    if (this.post) {
-      this.render(this.post.attributes);
+    if (post) {
+      this.render(post.attributes);
     } else {
       App.router.navigate(posts_path(), {trigger: true});
     }
@@ -64,13 +64,19 @@ App.Views.Posts = Resources.View.extend({
   edit: function() {
     this.template = _.template($('#posts-edit').text());
     this.Posts.fetch();
-    this.post = this.Posts.findWhere({id: this.params.id});
+    var post = this.Posts.findWhere({id: this.params.id});
     
     this.skipRender();
     
-    if (this.post) {
-        this.render(this.post.attributes);
-        this.PostEditFormView = new App.Views.PostEditForm({model: this.post});
+    if (post) {
+        this.render(post.attributes);
+        
+        if (this.PostEditFormView) {
+          this.PostEditFormView.model = post;
+        } else {
+          this.PostEditFormView = new App.Views.PostEditForm({model: post});
+        }
+        
     } else {
         App.router.navigate(posts_path(), {trigger: true});
     }

@@ -76,19 +76,22 @@ App.Views.PostEditForm = Backbone.View.extend({
   },
 
   editPost: function() {
-    this.inputTitle = this.$('[name="title"]')
-    this.inputBody = this.$('[name="body"]')
     
-    this.model.save({title: this.inputTitle.val(), body: this.inputBody.val()}, {wait: true})
     
+    this.inputTitle = this.$('[name="title"]');
+    this.inputBody = this.$('[name="body"]');
+    //console.log(this.model);
+    this.model.save({title: this.inputTitle.val(), body: this.inputBody.val()}, {wait: true});
+    console.log(post_path(this.model.get('id')));
     if (this.model.isValid())
     {
-      App.router.navigate(post_path(this.model.get('id')), {trigger: true})
+      
+      App.router.navigate(post_path(this.model.get('id')), {trigger: true});
     }
       
-    this.showValidationErrors()
+    this.showValidationErrors();
 
-    return false
+    return false;
   }
     
 });
@@ -112,7 +115,7 @@ App.Views.PostNewForm = Backbone.View.extend({
       $('#errors').append("<p>" + this.model.validationError[key] + "</p>");
     }
 
-    return false
+    return false;
   },
 
   createPost: function() {
@@ -132,7 +135,7 @@ App.Views.PostNewForm = Backbone.View.extend({
     }
     this.showValidationErrors();
 
-    return false
+    return false;
   }
     
 });

@@ -1,9 +1,3 @@
-// Backbone.Resources v0.0.1
-//
-// Copyright (c) 2013 Alexey Krasman
-// Distributed under MIT License
-//
-// Documentation available at: https://github.com/Iverson/backbone-resources
 var Resources = (function(Backbone, _) {
   
   /// Default options

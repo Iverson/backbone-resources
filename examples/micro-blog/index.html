@@ -14,7 +14,7 @@
 	<script type="text/javascript" src="../../vendor/backbone.js"></script>
 	<script type="text/javascript" src="../backbone.localStorage.js"></script>
 	<script type="text/javascript" src="../../vendor/backbone-validation.js"></script>
-	<script type="text/javascript" src="../../backbone-resources.js"></script>
+	<script type="text/javascript" src="../../build/backbone-resources.min.js"></script>
 	<script type="text/javascript" src="app.js"></script>
 	<script type="text/javascript" src="resources.js"></script>
 </head>
@@ -27,7 +27,6 @@
             <div class="page-header">
                 <h1>Micro-blog</h1>
             </div>
-            <p class="lead">Example of application with&nbsp;<a href="https://github.com/Iverson/backbone-resources">Backbone.Resources</a></p>
             
             <div id="app">
         		Loading....
@@ -38,7 +37,7 @@
     <div id="footer">
         <div class="container">
             <p class="text-muted credit">
-                <a href="https://github.com/Iverson/backbone-resources">Backbone.Resources</a> by
+                Example of application with&nbsp;<a href="https://github.com/Iverson/backbone-resources">Backbone.Resources</a> by
                 Alexey Krasman <a href="mailto:akrasman@gmail.com">akrasman@gmail.com</a>
             </p>
         </div>
@@ -71,7 +70,7 @@
                 <textarea class="form-control" rows="4" id="exampleInputPassword1" name="body" placeholder="Write post text here..."><%= body %></textarea>
               </div>
               
-              <button type="submit" class="btn btn-primary js-editPost">Edit post</button>
+              <a href="#" class="btn btn-primary js-editPost">Edit post</a>
               
               <a class="btn btn-default" href="<%= posts_path() %>">Back to Post List</a>
             </form>
@@ -103,7 +102,7 @@
                 <textarea class="form-control" rows="4" id="exampleInputPassword1" name="body" placeholder="Write post text here..."></textarea>
               </div>
               
-              <button type="submit" class="btn btn-primary js-createPost">Add post</button>
+              <a href="#" class="btn btn-primary js-createPost">Add post</a>
               
               <a class="btn btn-default" href="<%= posts_path() %>">Back to Post List</a>
             </form>
