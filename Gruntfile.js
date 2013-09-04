@@ -4,7 +4,8 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     meta: {
-      banner: '/* <%= pkg.title %> v<%= pkg.version %>\n' + ' * <%= pkg.homepage %>\n' + ' *\n' + ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' + ' * Licensed under the MIT license.\n' + ' */\n\n'
+      banner: '/* <%= pkg.title %> v<%= pkg.version %>\n' + ' * <%= pkg.homepage %>\n' + ' *\n' + ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' + ' * Licensed under the MIT license.\n' + ' */\n\n',
+      doc_title: '# <%= pkg.title %> v<%= pkg.version %>\n\n'
     },
     rig: {
       build: {
@@ -13,6 +14,14 @@ module.exports = function(grunt) {
         },
         files: {
           'build/<%= pkg.name %>.js': ['src/<%= pkg.name %>.js']
+        }
+      },
+      readme: {
+        options: {
+          banner: '<%= grunt.config.get("meta").doc_title %>'
+        },
+        files: {
+          'README.md': ['src/README.md']
         }
       }
     },
@@ -39,7 +48,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-rigger');
   grunt.loadNpmTasks('grunt-release');
 
-  grunt.registerTask('default', ['uglify', 'rig']);
-  grunt.registerTask('release', ['release']);
+  grunt.registerTask('build', ['uglify', 'rig']);
+  grunt.registerTask('publish', ['build', 'release']);
 
 };
