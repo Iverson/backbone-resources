@@ -4,8 +4,8 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     meta: {
-      banner: '/* <%= pkg.title %> v<%= pkg.version %>\n' + ' * <%= pkg.homepage %>\n' + ' *\n' + ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' + ' * Licensed under the MIT license.\n' + ' */\n\n',
-      doc_title: '# <%= pkg.title %> v<%= pkg.version %>\n\n'
+      banner: '/* <%= pkg.title %> <%= pkg.version %>\n' + ' * <%= pkg.homepage %>\n' + ' *\n' + ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' + ' * Licensed under the MIT license.\n' + ' */\n\n',
+      doc_title: '# <%= pkg.title %> <%= pkg.version %>\n\n'
     },
     rig: {
       build: {

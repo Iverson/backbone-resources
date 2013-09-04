@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Backbone.Resources demo</title>
+	<script type="text/javascript" src="../../vendor/jquery.min.js"></script>
+	<script type="text/javascript" src="../../vendor/underscore.js"></script>
+	<script type="text/javascript" src="../../vendor/backbone.js"></script>
+	<script type="text/javascript" src="../../build/backbone-resources.min.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript" src="resources.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+        $(function() {
+            router = new Router();
+	        Backbone.history.start();   
+        });
+    </script>
+    
+    <div id="app">
+		Loading....
+	</div>
+	
+	<!-- Templates -->
+	<script type="text/template" id="posts-edit">
+		<h2>Edit post #<%= id %></h2>
+		<p></p>
+
+		<a class="btn btn-default" href="<%= posts_path() %>">Back to Index</a>
+	</script>
+	
+	<script type="text/template" id="posts-index">
+        <h2>Posts index <small>(<a href="<%= new_post_path()  %>" class="">Create new post</a>)</small></h2>
+
+        <p><a href="<%= post_path(1) %>">Show post 1</a> (<a href="<%= edit_post_path(1) %>">Edit</a>)</p>
+        <p><a href="<%= post_path(2) %>">Show post 2</a> (<a href="<%= edit_post_path(2) %>">Edit</a>)</p>
+        <br />
+        <p><a href="#e/2">Redirect</a></p>
+	</script>
+	
+	<script type="text/template" id="posts-new">
+		<h2>New post</h2>
+		<p></p>
+
+		<a class="btn btn-default" href="<%= posts_path() %>">Back to Index</a>
+	</script>
+	
+	<script type="text/template" id="posts-show">
+		<h2>Show post #<%= id %></h2>
+		<p></p>
+
+		<a class="btn btn-default" href="<%= posts_path() %>">Back to Index</a>
+	</script>
+</body>
+</html>
