@@ -35,7 +35,7 @@ module.exports = function(grunt) {
         dest: 'build/<%= pkg.name %>.min.js'
       }
     },
-    bump: {
+    push: {
       options: {
         files: ['package.json'],
         updateConfigs: [],
@@ -43,7 +43,7 @@ module.exports = function(grunt) {
         addFiles: ['.'], // '.' for all files except ingored files in .gitignore
         commit: true,
         commitMessage: 'Release %VERSION%',
-        commitFiles: '-a', // '-a' for all files
+        commitFiles: ['-a'], // '-a' for all files
         createTag: true,
         tagName: '-%VERSION%',
         tagMessage: 'Version %VERSION%',
