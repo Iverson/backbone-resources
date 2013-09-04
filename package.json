@@ -2,7 +2,7 @@
   "name": "backbone-resources",
   "title": "Backbone.Resources",
   "description": "Backbone plugin for declaring resource routing like in Rails.",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "homepage": "https://github.com/Iverson/backbone-resources",
   "author": {
     "name": "Alexey Krasman",
