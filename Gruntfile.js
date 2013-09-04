@@ -35,10 +35,21 @@ module.exports = function(grunt) {
         dest: 'build/<%= pkg.name %>.min.js'
       }
     },
-    release: {
+    bump: {
       options: {
-        bump: false, //default: true
-        npm: false, //default: true
+        files: ['package.json'],
+        updateConfigs: [],
+        add: true,
+        addFiles: ['.'], // '.' for all files except ingored files in .gitignore
+        commit: true,
+        commitMessage: 'Release v%VERSION%',
+        commitFiles: '-a', // '-a' for all files
+        createTag: true,
+        tagName: '%VERSION%',
+        tagMessage: 'Version %VERSION%',
+        push: true,
+        pushTo: 'origin',
+        npm: false
       }
     }
   });
@@ -46,9 +57,9 @@ module.exports = function(grunt) {
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-rigger');
-  grunt.loadNpmTasks('grunt-release');
+  grunt.loadNpmTasks('grunt-push-release');
 
   grunt.registerTask('build', ['uglify', 'rig']);
-  grunt.registerTask('publish', ['build', 'release']);
+  grunt.registerTask('publish', ['build', 'bump']);
 
 };

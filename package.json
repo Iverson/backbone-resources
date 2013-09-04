@@ -2,7 +2,7 @@
   "name": "backbone-resources",
   "title": "Backbone.Resources",
   "description": "Backbone plugin for declaring resource routing like in Rails.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/Iverson/backbone-resources",
   "author": {
     "name": "Alexey Krasman",
@@ -38,6 +38,6 @@
     "grunt-contrib-jshint": "~0.6.0",
     "grunt-contrib-uglify": "~0.2.2",
     "grunt-rigger": ">=0.3.0",
-    "grunt-release": "~0.5.1"
+    "grunt-push-release": "~0.1.1"
   }
 }
