@@ -1,10 +1,10 @@
 # Backbone.Resources 0.1.0
 
-No need more define route actions inside [Backbone](http://documentcloud.github.com/backbone) Router.
+Don't need more define route actions inside [Backbone](http://documentcloud.github.com/backbone) Router.
 
 ## Why you need it?
 
-With standart Backbone.Router your have to write long list of routes for each action of your app, and worse, you have to define transit actions for each route inside Router function which as a rule just trigger special events which handled in other Views. So why we need these extra functions and events handlers? What about declarative relation between resource routes and View-actions like in Rails router? And what about declarative redirects in a single line of code also without router actions? With Backbone.Resources you can do this and some more!
+With standart Backbone.Router your have to write long list of routes for each action of your app, and worse, you have to define transit actions for each route inside Router function which as a rule just trigger special events and it handled in other Views. So why we need these extra functions in Router and events handlers in Views? What about declarative relation between resource routes and View-actions like in Rails router? And what about declarative redirects in a single line of code also without router actions? With Backbone.Resources you can do this and some more!
 Features of Backbone.Resources:
 
 * Resource Routing like in Rails. Your declare in a single line of code all routes for one resource and bind it with special View that service it.
@@ -37,13 +37,6 @@ Features of Backbone.Resources:
 	<script type="text/javascript" src="resources.js"></script>
 </head>
 <body>
-    <script type="text/javascript">
-        $(function() {
-            router = new Router();
-	        Backbone.history.start();   
-        });
-    </script>
-    
     <div id="app">
 		Loading....
 	</div>
@@ -51,7 +44,6 @@ Features of Backbone.Resources:
 	<!-- Templates -->
 	<script type="text/template" id="posts-edit">
 		<h2>Edit post #<%= id %></h2>
-		<p></p>
 
 		<a class="btn btn-default" href="<%= posts_path() %>">Back to Index</a>
 	</script>
@@ -67,14 +59,12 @@ Features of Backbone.Resources:
 	
 	<script type="text/template" id="posts-new">
 		<h2>New post</h2>
-		<p></p>
 
 		<a class="btn btn-default" href="<%= posts_path() %>">Back to Index</a>
 	</script>
 	
 	<script type="text/template" id="posts-show">
 		<h2>Show post #<%= id %></h2>
-		<p></p>
 
 		<a class="btn btn-default" href="<%= posts_path() %>">Back to Index</a>
 	</script>
@@ -121,11 +111,25 @@ Router = Resources.Router.extend({
     "e/:id" : "posts/:id/edit"
   }
 });
+
+// Init router
+
+$(function() {
+    router = new Router();
+    Backbone.history.start();   
+});
+
 ```
 
 #### And this is all! Check magic in your page!
 
-For each resource routes will be created helper method for simple generating route url.
+* On matching route `#posts/new` will be called `new` action of `PostsView` and after call `render()` with `_.template($('#posts-new').text())`.
+
+* On matching `#posts/2/edit` be called `edit` action and `render()` with `_.template($('#posts-edit').text())` and params `{id: 2}`.
+
+* Root route will be redirected to `#posts` and `#e/2/` will be redirected to `#posts/2/edit`.
+
+* For each resource routes will be created helper method for simple generating route url.
 ```js
   // Example:
   posts_path()         // => '#posts'
@@ -133,12 +137,6 @@ For each resource routes will be created helper method for simple generating rou
   post_path(12)        // => '#posts/12'
   edit_post_path(12)   // => '#posts/12/edit'
 ```
-
-* On matching route `#posts/new` will be called `new` action of `PostsView` and after call `render()` with `_.template($('#posts-new').text())`.
-
-* On matching `#posts/2/edit` be called `edit` action and `render()` with `_.template($('#posts-edit').text())` and params `{id: 2}`.
-
-* Root route will be redirected to `#posts` and `#e/2/` will be redirected to `#posts/2/edit`.
 
 #### Cool! But I'm too lazy setting template even...
 
@@ -178,7 +176,7 @@ For using custom template engine, for example <strong>Handlebars</strong>, just 
   ...
 ```
 
-If you dont wana bind any View with resource just dont set `view:` in resource:
+If you dont wana bind any View with routes just dont set `view:` in resource:
 
 ```js
   ...
@@ -188,8 +186,9 @@ If you dont wana bind any View with resource just dont set `view:` in resource:
   ...
 ```
 
-and Router just will be trigger action events on itself like `routes:posts:edit` with url params and this is also very useful.
+and Router just will be trigger action events on itself like `routes:posts:edit` with url params. This is also very useful.
 
 #### Demo
 
-Check these [examples](https://github.com/Iverson/backbone-resources/tree/master/examples).
+* [Without models](https://github.com/Iverson/backbone-resources/tree/master/examples/template)
+* [Micro-blog with CRUD-funtional](https://github.com/Iverson/backbone-resources/tree/master/examples/micro-blog)
