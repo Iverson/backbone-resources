@@ -1,5 +1,3 @@
-# Backbone.Resources 0.1.0
-
 Don't need more define route actions inside [Backbone](http://documentcloud.github.com/backbone) Router.
 
 ## Why you need it?
