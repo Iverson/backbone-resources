@@ -1,7 +1,7 @@
 /* Backbone.Resources 0.1.0
  * https://github.com/Iverson/backbone-resources
  *
- * Copyright (c) 2013 Alexey Krasman
+ * Copyright (c) 2014 Alexey Krasman
  * Licensed under the MIT license.
  */
 

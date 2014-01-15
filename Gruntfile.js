@@ -27,7 +27,7 @@ module.exports = function(grunt) {
     },
     uglify: {
       options: {
-        banner: '/* <%= pkg.title %> v<%= pkg.version %> */\n',
+        banner: '<%= grunt.config.get("meta").banner %>',
         report: 'min'
       },
       build: {

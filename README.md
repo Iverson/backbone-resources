@@ -34,39 +34,27 @@ Features of Backbone.Resources:
 	<script type="text/javascript" src="../../vendor/backbone.js"></script>
 	<script type="text/javascript" src="../../build/backbone-resources.min.js"></script>
 	<script type="text/javascript" src="app.js"></script>
-	<script type="text/javascript" src="resources.js"></script>
 </head>
 <body>
-    <div id="app">
+  <div id="app">
 		Loading....
 	</div>
 	
-	<!-- Templates -->
+	<!-- Posts resource templates -->
 	<script type="text/template" id="posts-edit">
-		<h2>Edit post #<%= id %></h2>
-
-		<a class="btn btn-default" href="<%= posts_path() %>">Back to Index</a>
+		<!-- Edit action template... -->
 	</script>
 	
 	<script type="text/template" id="posts-index">
-        <h2>Posts index <small>(<a href="<%= new_post_path()  %>" class="">Create new post</a>)</small></h2>
-
-        <p><a href="<%= post_path(1) %>">Show post 1</a> (<a href="<%= edit_post_path(1) %>">Edit</a>)</p>
-        <p><a href="<%= post_path(2) %>">Show post 2</a> (<a href="<%= edit_post_path(2) %>">Edit</a>)</p>
-        <br />
-        <p><a href="#e/2">Redirect</a></p>
+    <!-- Index action template... -->
 	</script>
 	
 	<script type="text/template" id="posts-new">
-		<h2>New post</h2>
-
-		<a class="btn btn-default" href="<%= posts_path() %>">Back to Index</a>
+		<!-- New action template... -->
 	</script>
 	
 	<script type="text/template" id="posts-show">
-		<h2>Show post #<%= id %></h2>
-
-		<a class="btn btn-default" href="<%= posts_path() %>">Back to Index</a>
+	   <!-- Show action template... -->
 	</script>
 </body>
 </html>
