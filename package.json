@@ -4,6 +4,10 @@
   "description": "Backbone plugin for declaring resource routing like in Rails.",
   "version": "0.1.0",
   "homepage": "https://github.com/Iverson/backbone-resources",
+  "main": "dist/bundle.js",
+  "scripts": {
+    "postinstall": "echo 'backbone-resources postinstall: '; ls node_modules"
+  },
   "author": {
     "name": "Alexey Krasman",
     "email": "akrasman@gmail.com"
